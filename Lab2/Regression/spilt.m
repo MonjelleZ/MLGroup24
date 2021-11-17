@@ -1,4 +1,4 @@
-function [ DLeft, DRight ] = Spilt( dataSet, feature, value )
+function [ DLeft, DRight ] = BinSpilt( dataSet, feature, value )
   
     [m,~] = size(dataSet);
     DataTemp = dataSet(:,feature)';
