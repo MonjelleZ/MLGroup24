@@ -1,10 +1,24 @@
-function [tree] = CreateTreeClassification(data)
-    %feature_name = {'X1','X2','X3','X4','X5','X6'};
-    [m,n] = size(data);
-    %tree = struct('op', [], 'kids', [], 'type', [], 'attribute', []);
-    tree = struct('op', [], 'kids', [], 'class', [], 'attribute', [], 'threshold', []);
-    entropy = getEntropy(data);
+function [tree] = CreateTreeClassification(data,feature_used)
 
+    %{
+     feature name of column 1-6:
+
+     Incidence of pelvis : IOP
+     pelvic inclination : PI
+     lumbar lordosis Angle : LLA
+     sacral slope : SS
+     pelvic radius : PR
+     degree of lumbar spondylolisthesis : DOLS
+
+    %}
+    feature_name = {'IOP','PI','LLA','SS','PR','DOLS'};
+    [m,n] = size(data);
+    allFeature = 1:(n-1);
+    unusedFeature = setdiff(allFeature, feature_used);
+    [~,mf] = size(unusedFeature);
+    tree = struct('op', [], 'kids', [], 'prediction', [], 'attribute', [], 'threshold', []);
+    entropy = getEntropy(data);
+    
     temp_type=data(1,n);
     temp_b=true;
 
@@ -14,42 +28,33 @@ function [tree] = CreateTreeClassification(data)
        end
     end
 
-    if temp_b==true || n ==2
-        %tree.class=data(1,end);
+    if temp_b==true || mf == 1
         res = mostType(data);
-        tree.class=res;
+        tree.prediction=res;
         tree.kids=cell(0);
         tree.op = [];
         tree.attribute = [];
         tree.threshold = [];
-        disp('------ end ----- ')
         return
             
     else
         bestGain = 0;
         bestfeature = 0;
-        for i = 1:n-1
-            [gain,split_num,feature_data1,feature_data2] = getGain(entropy,data,i);
+        
+        for j = 1:mf % traverse unusedFeature columns(features)
+            [gain,split_num,feature_data1,feature_data2] = getGain(entropy,data,unusedFeature(j));
             if gain > bestGain
                 bestGain = gain;
-                bestfeature = i;
+                bestfeature = unusedFeature(j);
             end
+                
         end
-        disp(bestfeature)
-        disp(bestGain)
-        feature_data1(:,bestfeature) = [];
-        feature_data2(:,bestfeature) = [];
-        disp('-------')
-        disp(feature_data1)
-        disp('__')
-        disp(feature_data2)
-        [~, l ] = size(feature_data1);
-        [~, r ] = size(feature_data2);
-        tree.op = bestfeature;
+        feature_used =[feature_used,bestfeature];
+        tree.op = feature_name{bestfeature};
         tree.threshold = split_num;
         tree.attribute = [];
-        tree.class=[];
-        tree.kids = {CreateTreeClassification(feature_data1), CreateTreeClassification(feature_data2)};
+        tree.prediction=[];
+        tree.kids = {CreateTreeClassification(feature_data1,feature_used), CreateTreeClassification(feature_data2,feature_used)};
     end
   
 

@@ -1,4 +1,4 @@
-%计算样本最多的结果
+% the most type
 function [res] = mostType(data)
   [m,n]=size(data);
   res_distinct = unique(data(:,n));

@@ -17,7 +17,7 @@ function DrawDecisionTree(tree,titletext)
 
 % Set tree titles
 if nargin < 2
-    titletext = '';
+    titletext = 'Decision Tree found';
 end
 % Using new figure to display tree
 h=figure; % new figure for this particular tree
@@ -101,5 +101,6 @@ else
     opText = tree.op;
     line(tree.X, tree.Y, 'marker', '.', 'markersize', 8)
 %     text(tree.X, tree.Y, opText, 'HorizontalAlignment', 'center', 'VerticalAlignment', 'top', 'interpreter', 'none')
-    text(tree.X, tree.Y, num2str(tree.class) ,'HorizontalAlignment', 'right', 'VerticalAlignment', 'top', 'interpreter', 'none');
+    text(tree.X, tree.Y, num2str(tree.prediction) ,'HorizontalAlignment', 'right', 'VerticalAlignment', 'top', 'interpreter', 'none');
+  
 end

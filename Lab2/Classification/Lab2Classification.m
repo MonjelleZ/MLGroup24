@@ -1,6 +1,16 @@
 % the categories Disk Hernia and Spondylolisthesis were merged into a single category labelled as 'abnormal'.
-%   NO:   Normal (100 patients) 
-%   AB:   Abnormal (210 patients). 
+%   NO:   Normal (100 patients)  0
+%   AB:   Abnormal (210 patients). 1
+
+%
+%     feature name of column 1-6:
+%           1. Incidence of pelvis : IOP
+%           2. pelvic inclination : PI
+%           3. lumbar lordosis Angle : LLA
+%           4. sacral slope : SS
+%           5. pelvic radius : PR
+%           6. degree of lumbar spondylolisthesis : DOLS
+
 
 %% Initialize
 clear;
@@ -11,6 +21,12 @@ clc;
 column_2c=readtable('column_2C.dat');
 categories=table2cell(column_2c(:,end));
 categories_num=grp2idx(categories);
+for i=1:length(categories_num(:,end))
+    if categories_num(i) == 2
+        categories_num(i) = 0;
+    end
+end
+
 
 dateset=table2array(column_2c(:,1:6));
 
@@ -22,12 +38,24 @@ testset = dateset(rand_num(251:end),:);
 
 
 
-%% decision tree
-[tree] = CreateTreeClassification(trainset);
+%% generate decision tree
+feature_used = [];
+[tree] = CreateTreeClassification(trainset,feature_used);
 
-%[entropy] = getEntropy(trainset);
-%[gain] = getGain(entropy,trainset,1);
+%% draw decidion tree
+DrawDecisionTree(tree,'Decision Tree of Vertebral Classification')
 
+%% predict
+predictedSet = predictTree(tree,testset(:,1:6))';
+realSet = testset(:,7);
+accuracy = sum(predictedSet == realSet)/length(predictedSet)*100;
+fprintf('Accury: %f\n', accuracy);
+
+
+%% 10-fold cross validatioin
+ClassificationRate= KCrossValidation(dateset(rand_num(1:end),:),10);
+
+%% F1-measure, Recall and precision rates
 
 
 

@@ -1,3 +1,4 @@
+% calculate the entropy
 function [entropy] = getEntropy(data)
   entropy=0;
   [m,n]=size(data);
