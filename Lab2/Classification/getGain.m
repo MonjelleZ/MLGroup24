@@ -23,7 +23,7 @@ function [gain,split_num,feature_data1,feature_data2] = getGain(entropy,data,col
         end
     
     end
-    gain=entropy -  feature_row1/m*getEntropy(feature_data1) - feature_row2/m*getEntropy(feature_data2);
+    gain=entropy -  (feature_row1-1)/m*getEntropy(feature_data1) - (feature_row2-1)/m*getEntropy(feature_data2);
 
     
 end
