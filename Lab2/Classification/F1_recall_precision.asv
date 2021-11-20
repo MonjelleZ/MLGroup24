@@ -1,27 +1,43 @@
-function [F1,Recall, Precision,Accuracy] = Measure(targets, outputs)
-[c,cm,ind,per] = confusion(targets,outputs);
-for i = 1:size(cm,1)
-    tp = cm(i,i);
-    fp = 0;
-    tn = 0;
-    fn = 0;
-    for j = 1:size(cm,1)
-        if j ~= i
-            tn = tn+cm(j,j);
-            fp = fp+cm(j,i);
-            fn = fn+cm(i,j);
+function [F1,recal, preci,accu] = manu_measure(targets, outputs,class)
+tp = 0;
+fp = 0;
+tn = 0;
+fn = 0;
+if strcmp(class(targets(1)),'string')
+    for i = 1:size(targets)
+        if strcm(tagets(i),class) && strcm(outputs(i).calss)
+            tp = tp+1;
+        elseif strcm(tagets(i),class) && ~strcm(outputs(i).calss)
+            fn = fn+1;
+        elseif ~strcm(tagets(i),class) && strcm(outputs(i).calss)
+            fp = fp+1;
+        else
+            tn = tn+1
         end
     end
-    accuracy = (tp+fp)/(tp+fp+tn+fn);
-    recall = tp/(tp+fn)
-    precision = tp/(tp+fp); 
-    f1 = 2*precision*recall/(precision+recall);
-    
-    % add results for class i to the finall result list
-    F1 = [F1,f1];
-    Recall = [Recall,recall];
-    Precision = [Precision,Precision];
-    Accuracy = [Accuracy,accuracy];
 end
+if strcmp(class(targets(1)),'double')
+    for i = 1:size(targets)
+        if tagets(i) == class && outputs(i) == calss
+            tp = tp+1;
+        elseif tagets(i) == class && outputs(i) ~= calss
+            fn = fn+1;
+        elseif tagets(i) ~= class && outputs(i) == calss
+            fp = fp+1;
+        else
+            tn = tn+1
+        end
+    end
 
 end
+    accu = (tp+fp)/(tp+fp+tn+fn);
+    recal = tp/(tp+fn)
+    preci = tp/(tp+fp); 
+    F1 = 2*preci*recal/(preci+recal);
+end
+
+
+%targett = [1,2,3,4,5,4,5,4,5]
+%predict = [1,2,5,4,5,5,5,4,5]
+%[f1,recall,precision,accuracy] = manu_measure(targett, predict, 5)
+[f1,recall,precision,accuracy] = F1_recall_precision(targett, predict, 5)
