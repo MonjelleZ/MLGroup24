@@ -1,28 +1,29 @@
-function [F1,recal, preci,accu] = manu_measure(targets, outputs,class)
+function [F1,recal, preci,accu] = F1_recall_precision(targets, outputs,class)
 tp = 0;
 fp = 0;
 tn = 0;
 fn = 0;
-if strcmp(class(targets(1)),'string')
-    for i = 1:size(targets)
-        if strcm(tagets(i),class) && strcm(outputs(i).calss)
+if ischar(class)
+    for i = 1:size(targets,2)
+        if strcmp(targets(i),class) && strcmp(outputs(i).calss)
             tp = tp+1;
-        elseif strcm(tagets(i),class) && ~strcm(outputs(i).calss)
+        elseif strcmp(targets(i),class) && ~strcmp(outputs(i).calss)
             fn = fn+1;
-        elseif ~strcm(tagets(i),class) && strcm(outputs(i).calss)
+        elseif ~strcmp(targets(i),class) && strcmp(outputs(i).calss)
             fp = fp+1;
         else
             tn = tn+1
         end
     end
 end
-if strcmp(class(targets(1)),'double')
-    for i = 1:size(targets)
-        if tagets(i) == class && outputs(i) == calss
+if isnumeric(class)
+    s = size(targets,2)
+    for i = 1:s
+        if targets(i) == class && outputs(i) == class
             tp = tp+1;
-        elseif tagets(i) == class && outputs(i) ~= calss
+        elseif targets(i) == class && outputs(i) ~= class
             fn = fn+1;
-        elseif tagets(i) ~= class && outputs(i) == calss
+        elseif targets(i) ~= class && outputs(i) == class
             fp = fp+1;
         else
             tn = tn+1
@@ -37,7 +38,7 @@ end
 end
 
 
+%% Test Code
 %targett = [1,2,3,4,5,4,5,4,5]
 %predict = [1,2,5,4,5,5,5,4,5]
-%[f1,recall,precision,accuracy] = manu_measure(targett, predict, 5)
-[f1,recall,precision,accuracy] = F1_recall_precision(targett, predict, 5)
+%[f1,recall,precision,accuracy] = F1_recall_precision(targett, predict, 5)
