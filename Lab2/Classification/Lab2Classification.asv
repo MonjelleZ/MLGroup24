@@ -32,7 +32,7 @@ dateset=table2array(column_2c(:,1:6));
 
 dateset(:,7)=categories_num(:,1);
 
-rand_num=randperm(310);
+rand_num=randperm(300);
 trainset=dateset(rand_num(1:250),:);
 testset = dateset(rand_num(251:end),:);
 
@@ -56,7 +56,8 @@ fprintf('Accury: %f\n', accuracy);
 ClassificationRate= KCrossValidation(dateset(rand_num(1:end),:),10);
 
 %% F1-measure, Recall and precision rates
-[F1,recal, preci,accu] = F1_recall_precision(realSet, predictedSet);
-fprintf('F1: %f\n  recall: %f\n precision:%f \n accuacy: %f\n', F1,recal,preci,accu);
+[F1,recal, preci,accu] = F1_recall_precision(realSet, predictedSet,class);
+fprintf('F1: %f\n  recall: %f\n precision:%f  accuacy: %f\n', F1,recal,accuracy);
+
 
 

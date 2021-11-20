@@ -55,10 +55,12 @@ function [tree] = CreateTreeClassification(data,feature_used)
                 
         end
         if bestGain == 0
-            bestfeature = unusedFeature(1);
+            bestGain = gain;
+            bestfeature = unusedFeature(j);
             bestsplitnum = split_num;
             leftdata = feature_data1;
             rightdata = feature_data2;
+
         end
         feature_used =[feature_used,bestfeature];
         tree.op = feature_name{bestfeature};
