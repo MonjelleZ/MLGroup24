@@ -63,7 +63,7 @@ function [tree] = CreateTreeClassification(data,feature_used)
         feature_used =[feature_used,bestfeature];
         tree.op = feature_name{bestfeature};
         tree.threshold = bestsplitnum;
-        tree.attribute = [];
+        tree.attribute = bestfeature;
         tree.prediction=[];
         tree.kids = {CreateTreeClassification(leftdata,feature_used), CreateTreeClassification(rightdata,feature_used)};
     end
