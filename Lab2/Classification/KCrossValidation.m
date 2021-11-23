@@ -4,7 +4,7 @@ function ClassificationRate= KCrossValidation(data,K)
     accuracysum=0;
     for i = 1:K
         feature_used = [];
-        begin = ['******************************* K-fold cross-validation ： ' , num2str(i), ' ******************************* '];
+        begin = ['******************************* cross-validation ： ' , num2str(i), ' ******************************* '];
         disp(begin)
         Knum=size(data,1)/K;
         vaildset=data(1+(i-1)*Knum:i*Knum,:);
@@ -24,6 +24,9 @@ function ClassificationRate= KCrossValidation(data,K)
         realSet = vaildset(:,7);
         accuracy = sum(predictedSet == realSet)/length(predictedSet)*100;
         accuracysum = accuracy + accuracysum;
+        [F1,recal, preci,accu] = F1_recall_precision(realSet, predictedSet);
+        fprintf('F1: %f\n  recall: %f\n precision:%f \n accuacy: %f\n', F1,recal,preci,accu);
+
     end
     ClassificationRate = accuracysum / K;
     answer = ['The average classification rate : ', num2str(ClassificationRate),'%' ];

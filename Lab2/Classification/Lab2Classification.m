@@ -45,18 +45,8 @@ feature_used = [];
 %% draw decidion tree
 DrawDecisionTree(tree,'Decision Tree of Vertebral Classification')
 
-%% predict
-predictedSet = predictTree(tree,testset(:,1:6))';
-realSet = testset(:,7);
-accuracy = sum(predictedSet == realSet)/length(predictedSet)*100;
-fprintf('Accury: %f\n', accuracy);
-
-
-%% 10-fold cross validatioin
+%% cross validatioin, K = 10
 ClassificationRate= KCrossValidation(dateset(rand_num(1:end),:),10);
 
-%% F1-measure, Recall and precision rates
-[F1,recal, preci,accu] = F1_recall_precision(realSet, predictedSet);
-fprintf('F1: %f\n  recall: %f\n precision:%f \n accuacy: %f\n', F1,recal,preci,accu);
 
 
