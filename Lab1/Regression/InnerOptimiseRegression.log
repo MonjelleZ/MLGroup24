@@ -1,0 +1,1263 @@
+
+%% Divide training data and test data
+autompg=readtable('auto-mpg.dat');
+categories=table2array(autompg(:,1));
+categories_num=length(categories);
+
+featuren=table2array(autompg(:,2:8));
+
+temp=mapminmax(featuren',0,1);%
+feature=temp';
+
+X=feature(:,3:4);
+Y=categories(:);
+
+rand_num=randperm(398);
+X_train=X(rand_num(1:350),:);
+Y_train=Y(rand_num(1:350),:);
+
+X_test=X(rand_num(351:398),:);
+Y_test=Y(rand_num(351:398),:);
+
+RMSEtotal1=0;
+RMSEtotal2=0;
+RMSEtotal3=0;
+%% cross-validation best optimal hyperparameters : kernel == rbf 
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+Use rbf kernel method, the number of support vecorts in BM1 is :  106, absolute terms and in terms of a % training data available is: 67.5159%
+Use rbf kernel method, the number of support vecorts in BM2 is :  104, absolute terms and in terms of a % training data available is: 66.242%
+the best hyperparameters of rbf Model : C :35, Sigma:2, RMSE: 51.876, Epsilon:1.1
+Use rbf kernel method, the number of support vecorts in BM1 is :  104, absolute terms and in terms of a % training data available is: 66.242%
+Use rbf kernel method, the number of support vecorts in BM2 is :  104, absolute terms and in terms of a % training data available is: 66.242%
+the best hyperparameters of rbf Model : C :44, Sigma:2, RMSE: 51.8125, Epsilon:1.1
+Use rbf kernel method, the number of support vecorts in BM1 is :  124, absolute terms and in terms of a % training data available is: 78.9809%
+Use rbf kernel method, the number of support vecorts in BM2 is :  104, absolute terms and in terms of a % training data available is: 66.242%
+the best hyperparameters of rbf Model : C :45, Sigma:2, RMSE: 52.0547, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  118, absolute terms and in terms of a % training data available is: 75.1592%
+Use rbf kernel method, the number of support vecorts in BM2 is :  104, absolute terms and in terms of a % training data available is: 66.242%
+the best hyperparameters of rbf Model : C :44, Sigma:2, RMSE: 51.7415, Epsilon:0.8
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 71)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',71,0)">第 71 行</a>)
+                    Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'KernelScale',d(j),'BoxConstraint',c(i),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 20)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',20,0)">第 20 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'rbf');
+} 
+%% Initialize
+warning off 
+clear;
+close all;
+clc;
+
+%% Write the log in the file
+diary InnerOptimiseRegression.log
+
+%% Divide training data and test data
+autompg=readtable('auto-mpg.dat');
+categories=table2array(autompg(:,1));
+categories_num=length(categories);
+
+featuren=table2array(autompg(:,2:8));
+
+temp=mapminmax(featuren',0,1);%
+feature=temp';
+
+X=feature(:,3:4);
+Y=categories(:);
+
+rand_num=randperm(398);
+X_train=X(rand_num(1:350),:);
+Y_train=Y(rand_num(1:350),:);
+
+X_test=X(rand_num(351:398),:);
+Y_test=Y(rand_num(351:398),:);
+
+RMSEtotal1=0;
+RMSEtotal2=0;
+RMSEtotal3=0;
+%% cross-validation best optimal hyperparameters : kernel == rbf 
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+Use rbf kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use rbf kernel method, the number of support vecorts in BM2 is :  99, absolute terms and in terms of a % training data available is: 63.0573%
+the best hyperparameters of rbf Model : C :44, Sigma:1.5, RMSE: 46.2949, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  119, absolute terms and in terms of a % training data available is: 75.7962%
+Use rbf kernel method, the number of support vecorts in BM2 is :  99, absolute terms and in terms of a % training data available is: 63.0573%
+the best hyperparameters of rbf Model : C :45, Sigma:1.5, RMSE: 45.5189, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  113, absolute terms and in terms of a % training data available is: 71.9745%
+Use rbf kernel method, the number of support vecorts in BM2 is :  99, absolute terms and in terms of a % training data available is: 63.0573%
+the best hyperparameters of rbf Model : C :44, Sigma:1.5, RMSE: 45.9361, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  121, absolute terms and in terms of a % training data available is: 77.0701%
+Use rbf kernel method, the number of support vecorts in BM2 is :  99, absolute terms and in terms of a % training data available is: 63.0573%
+the best hyperparameters of rbf Model : C :41, Sigma:1.5, RMSE: 45.6731, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  112, absolute terms and in terms of a % training data available is: 71.3376%
+Use rbf kernel method, the number of support vecorts in BM2 is :  99, absolute terms and in terms of a % training data available is: 63.0573%
+the best hyperparameters of rbf Model : C :45, Sigma:1.5, RMSE: 45.6873, Epsilon:1.1
+Use rbf kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use rbf kernel method, the number of support vecorts in BM2 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+the best hyperparameters of rbf Model : C :40, Sigma:1.5, RMSE: 48.4915, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  126, absolute terms and in terms of a % training data available is: 80.2548%
+Use rbf kernel method, the number of support vecorts in BM2 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+the best hyperparameters of rbf Model : C :43, Sigma:2.5, RMSE: 49.0509, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use rbf kernel method, the number of support vecorts in BM2 is :  106, absolute terms and in terms of a % training data available is: 67.5159%
+the best hyperparameters of rbf Model : C :40, Sigma:1.5, RMSE: 47.8098, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use rbf kernel method, the number of support vecorts in BM2 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+the best hyperparameters of rbf Model : C :40, Sigma:1.5, RMSE: 48.6783, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use rbf kernel method, the number of support vecorts in BM2 is :  132, absolute terms and in terms of a % training data available is: 84.0764%
+the best hyperparameters of rbf Model : C :40, Sigma:1.5, RMSE: 48.1071, Epsilon:0.5
+RMSEtr1=lostfunction;
+Dif= predict(BM,X_test)- Y_test;
+m= find(isnan(Dif));
+Dif(m,:)=[];
+RMSE = sqrt(sum(Dif.*Dif));
+RMSEtotal1=RMSEtotal1+RMSE;
+
+%%  cross-validation best optimal hyperparameters : kernel == Polynomial
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'Pol');
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  124, absolute terms and in terms of a % training data available is: 78.9809%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+the best hyperparameters of Polynomial Model : C :44, Sigma:1, RMSE: 46.2254, Epsilon:0.8
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  111, absolute terms and in terms of a % training data available is: 70.7006%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  93, absolute terms and in terms of a % training data available is: 59.2357%
+the best hyperparameters of Polynomial Model : C :40, Sigma:1, RMSE: 45.5531, Epsilon:1.1
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  132, absolute terms and in terms of a % training data available is: 84.0764%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+the best hyperparameters of Polynomial Model : C :45, Sigma:1, RMSE: 45.8232, Epsilon:0.5
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  122, absolute terms and in terms of a % training data available is: 77.707%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+the best hyperparameters of Polynomial Model : C :42, Sigma:1, RMSE: 45.7776, Epsilon:0.8
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  123, absolute terms and in terms of a % training data available is: 78.3439%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+the best hyperparameters of Polynomial Model : C :44, Sigma:1, RMSE: 45.721, Epsilon:0.8
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  123, absolute terms and in terms of a % training data available is: 78.3439%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  135, absolute terms and in terms of a % training data available is: 85.9873%
+the best hyperparameters of Polynomial Model : C :43, Sigma:1, RMSE: 48.7673, Epsilon:0.8
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  123, absolute terms and in terms of a % training data available is: 78.3439%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  135, absolute terms and in terms of a % training data available is: 85.9873%
+the best hyperparameters of Polynomial Model : C :43, Sigma:1, RMSE: 49.374, Epsilon:0.8
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  123, absolute terms and in terms of a % training data available is: 78.3439%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  105, absolute terms and in terms of a % training data available is: 66.879%
+the best hyperparameters of Polynomial Model : C :43, Sigma:1, RMSE: 47.5428, Epsilon:0.8
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  123, absolute terms and in terms of a % training data available is: 78.3439%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+the best hyperparameters of Polynomial Model : C :43, Sigma:1, RMSE: 49.0283, Epsilon:0.8
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  123, absolute terms and in terms of a % training data available is: 78.3439%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  97, absolute terms and in terms of a % training data available is: 61.7834%
+the best hyperparameters of Polynomial Model : C :43, Sigma:1, RMSE: 48.3433, Epsilon:0.8
+RMSEtr2=lostfunction;
+Dif= predict(BM,X_test)- Y_test;
+m= find(isnan(Dif));
+Dif(m,:)=[];
+RMSE = sqrt(sum(Dif.*Dif));
+RMSEtotal2=RMSEtotal2+RMSE;
+
+%% cross-validation best optimal hyperparameters : kernel == liner
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'lin');
+Use linear kernel method, the number of support vecorts in BM1 is :  113, absolute terms and in terms of a % training data available is: 71.9745%
+Use linear kernel method, the number of support vecorts in BM2 is :  111, absolute terms and in terms of a % training data available is: 70.7006%
+the best hyperparameters of linear Model : C :41, Sigma:1, RMSE: 49.7669, Epsilon:1.4
+Use linear kernel method, the number of support vecorts in BM1 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+Use linear kernel method, the number of support vecorts in BM2 is :  111, absolute terms and in terms of a % training data available is: 70.7006%
+the best hyperparameters of linear Model : C :40, Sigma:1, RMSE: 49.8971, Epsilon:0.5
+Use linear kernel method, the number of support vecorts in BM1 is :  132, absolute terms and in terms of a % training data available is: 84.0764%
+Use linear kernel method, the number of support vecorts in BM2 is :  111, absolute terms and in terms of a % training data available is: 70.7006%
+the best hyperparameters of linear Model : C :40, Sigma:1, RMSE: 49.5443, Epsilon:0.5
+Use linear kernel method, the number of support vecorts in BM1 is :  124, absolute terms and in terms of a % training data available is: 78.9809%
+Use linear kernel method, the number of support vecorts in BM2 is :  123, absolute terms and in terms of a % training data available is: 78.3439%
+the best hyperparameters of linear Model : C :45, Sigma:1, RMSE: 49.4531, Epsilon:0.8
+Use linear kernel method, the number of support vecorts in BM1 is :  125, absolute terms and in terms of a % training data available is: 79.6178%
+Use linear kernel method, the number of support vecorts in BM2 is :  123, absolute terms and in terms of a % training data available is: 78.3439%
+the best hyperparameters of linear Model : C :41, Sigma:1, RMSE: 49.4497, Epsilon:0.8
+Use linear kernel method, the number of support vecorts in BM1 is :  117, absolute terms and in terms of a % training data available is: 74.5223%
+Use linear kernel method, the number of support vecorts in BM2 is :  122, absolute terms and in terms of a % training data available is: 77.707%
+the best hyperparameters of linear Model : C :41, Sigma:1, RMSE: 50.7276, Epsilon:1.1
+Use linear kernel method, the number of support vecorts in BM1 is :  117, absolute terms and in terms of a % training data available is: 74.5223%
+Use linear kernel method, the number of support vecorts in BM2 is :  109, absolute terms and in terms of a % training data available is: 69.4268%
+the best hyperparameters of linear Model : C :41, Sigma:1, RMSE: 51.4177, Epsilon:1.1
+Use linear kernel method, the number of support vecorts in BM1 is :  117, absolute terms and in terms of a % training data available is: 74.5223%
+Use linear kernel method, the number of support vecorts in BM2 is :  104, absolute terms and in terms of a % training data available is: 66.242%
+the best hyperparameters of linear Model : C :41, Sigma:1, RMSE: 51.525, Epsilon:1.1
+Use linear kernel method, the number of support vecorts in BM1 is :  117, absolute terms and in terms of a % training data available is: 74.5223%
+Use linear kernel method, the number of support vecorts in BM2 is :  109, absolute terms and in terms of a % training data available is: 69.4268%
+the best hyperparameters of linear Model : C :41, Sigma:1, RMSE: 51.22, Epsilon:1.1
+Use linear kernel method, the number of support vecorts in BM1 is :  117, absolute terms and in terms of a % training data available is: 74.5223%
+Use linear kernel method, the number of support vecorts in BM2 is :  115, absolute terms and in terms of a % training data available is: 73.2484%
+the best hyperparameters of linear Model : C :41, Sigma:1, RMSE: 50.6511, Epsilon:1.1
+RMSEtr3=lostfunction;
+Dif= predict(BM,X_test)- Y_test;
+m= find(isnan(Dif));
+Dif(m,:)=[];
+RMSE = sqrt(sum(Dif.*Dif));
+RMSEtotal3=RMSEtotal3+RMSE;
+
+
+%% close log file
+
+diary off
+
+%% Divide training data and test data
+autompg=readtable('auto-mpg.dat');
+categories=table2array(autompg(:,1));
+categories_num=length(categories);
+
+featuren=table2array(autompg(:,2:8));
+
+temp=mapminmax(featuren',0,1);%
+feature=temp';
+
+X=feature(:,3:4);
+Y=categories(:);
+
+rand_num=randperm(398);
+X_train=X(rand_num(1:350),:);
+Y_train=Y(rand_num(1:350),:);
+
+X_test=X(rand_num(351:398),:);
+Y_test=Y(rand_num(351:398),:);
+
+RMSEtotal1=0;
+RMSEtotal2=0;
+RMSEtotal3=0;
+%% cross-validation best optimal hyperparameters : kernel == rbf 
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+Use rbf kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use rbf kernel method, the number of support vecorts in BM2 is :  127, absolute terms and in terms of a % training data available is: 80.8917%
+the best hyperparameters of rbf Model : C :44, Sigma:2.5,PolynomialOrder2.5,RMSE: 53.8457, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  123, absolute terms and in terms of a % training data available is: 78.3439%
+Use rbf kernel method, the number of support vecorts in BM2 is :  126, absolute terms and in terms of a % training data available is: 80.2548%
+the best hyperparameters of rbf Model : C :42, Sigma:2.5,PolynomialOrder2.5,RMSE: 54.1711, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+Use rbf kernel method, the number of support vecorts in BM2 is :  126, absolute terms and in terms of a % training data available is: 80.2548%
+the best hyperparameters of rbf Model : C :42, Sigma:1.5,PolynomialOrder1.5,RMSE: 53.6241, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use rbf kernel method, the number of support vecorts in BM2 is :  126, absolute terms and in terms of a % training data available is: 80.2548%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,PolynomialOrder2.5,RMSE: 54.1627, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+Use rbf kernel method, the number of support vecorts in BM2 is :  114, absolute terms and in terms of a % training data available is: 72.6115%
+the best hyperparameters of rbf Model : C :42, Sigma:1.5,PolynomialOrder1.5,RMSE: 53.3009, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  95, absolute terms and in terms of a % training data available is: 60.5096%
+Use rbf kernel method, the number of support vecorts in BM2 is :  115, absolute terms and in terms of a % training data available is: 73.2484%
+the best hyperparameters of rbf Model : C :41, Sigma:1.5,PolynomialOrder1.5,RMSE: 54.5663, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  95, absolute terms and in terms of a % training data available is: 60.5096%
+Use rbf kernel method, the number of support vecorts in BM2 is :  99, absolute terms and in terms of a % training data available is: 63.0573%
+the best hyperparameters of rbf Model : C :41, Sigma:1.5,PolynomialOrder1.5,RMSE: 52.3336, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+Use rbf kernel method, the number of support vecorts in BM2 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+the best hyperparameters of rbf Model : C :43, Sigma:1.5,PolynomialOrder1.5,RMSE: 52.2593, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  105, absolute terms and in terms of a % training data available is: 66.879%
+Use rbf kernel method, the number of support vecorts in BM2 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+the best hyperparameters of rbf Model : C :40, Sigma:1.5,PolynomialOrder1.5,RMSE: 50.6822, Epsilon:1.1
+Use rbf kernel method, the number of support vecorts in BM1 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+Use rbf kernel method, the number of support vecorts in BM2 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+the best hyperparameters of rbf Model : C :43, Sigma:1.5,PolynomialOrder1.5,RMSE: 48.184, Epsilon:1.4
+RMSEtr1=lostfunction;
+Dif= predict(BM,X_test)- Y_test;
+m= find(isnan(Dif));
+Dif(m,:)=[];
+RMSE = sqrt(sum(Dif.*Dif));
+RMSEtotal1=RMSEtotal1+RMSE;
+
+%%  cross-validation best optimal hyperparameters : kernel == Polynomial
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'Pol');
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  138, absolute terms and in terms of a % training data available is: 87.8981%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  144, absolute terms and in terms of a % training data available is: 91.7197%
+the best hyperparameters of Polynomial Model : C :43, Sigma:1,PolynomialOrder1,RMSE: 56.3329, Epsilon:0.5
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  120, absolute terms and in terms of a % training data available is: 76.4331%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  144, absolute terms and in terms of a % training data available is: 91.7197%
+the best hyperparameters of Polynomial Model : C :42, Sigma:1,PolynomialOrder1,RMSE: 56.5431, Epsilon:0.8
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  144, absolute terms and in terms of a % training data available is: 91.7197%
+the best hyperparameters of Polynomial Model : C :42, Sigma:1,PolynomialOrder1,RMSE: 55.7402, Epsilon:0.5
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  138, absolute terms and in terms of a % training data available is: 87.8981%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  144, absolute terms and in terms of a % training data available is: 91.7197%
+the best hyperparameters of Polynomial Model : C :45, Sigma:1,PolynomialOrder1,RMSE: 56.9699, Epsilon:0.5
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  114, absolute terms and in terms of a % training data available is: 72.6115%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  144, absolute terms and in terms of a % training data available is: 91.7197%
+the best hyperparameters of Polynomial Model : C :44, Sigma:1,PolynomialOrder1,RMSE: 55.4354, Epsilon:1.1
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  108, absolute terms and in terms of a % training data available is: 68.7898%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  141, absolute terms and in terms of a % training data available is: 89.8089%
+the best hyperparameters of Polynomial Model : C :41, Sigma:1,PolynomialOrder1,RMSE: 56.6963, Epsilon:1.4
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  108, absolute terms and in terms of a % training data available is: 68.7898%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  141, absolute terms and in terms of a % training data available is: 89.8089%
+the best hyperparameters of Polynomial Model : C :41, Sigma:1,PolynomialOrder1,RMSE: 55.1017, Epsilon:1.4
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  108, absolute terms and in terms of a % training data available is: 68.7898%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  140, absolute terms and in terms of a % training data available is: 89.172%
+the best hyperparameters of Polynomial Model : C :41, Sigma:1,PolynomialOrder1,RMSE: 54.8316, Epsilon:1.4
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  108, absolute terms and in terms of a % training data available is: 68.7898%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  132, absolute terms and in terms of a % training data available is: 84.0764%
+the best hyperparameters of Polynomial Model : C :41, Sigma:1,PolynomialOrder1,RMSE: 53.3272, Epsilon:1.4
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  108, absolute terms and in terms of a % training data available is: 68.7898%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  141, absolute terms and in terms of a % training data available is: 89.8089%
+the best hyperparameters of Polynomial Model : C :41, Sigma:1,PolynomialOrder1,RMSE: 51.098, Epsilon:1.4
+RMSEtr2=lostfunction;
+Dif= predict(BM,X_test)- Y_test;
+m= find(isnan(Dif));
+Dif(m,:)=[];
+RMSE = sqrt(sum(Dif.*Dif));
+RMSEtotal2=RMSEtotal2+RMSE;
+
+%% cross-validation best optimal hyperparameters : kernel == liner
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'lin');
+Use linear kernel method, the number of support vecorts in BM1 is :  138, absolute terms and in terms of a % training data available is: 87.8981%
+Use linear kernel method, the number of support vecorts in BM2 is :  144, absolute terms and in terms of a % training data available is: 91.7197%
+the best hyperparameters of linear Model : C :43, Sigma:1,PolynomialOrder1,RMSE: 56.3329, Epsilon:0.5
+Use linear kernel method, the number of support vecorts in BM1 is :  120, absolute terms and in terms of a % training data available is: 76.4331%
+Use linear kernel method, the number of support vecorts in BM2 is :  144, absolute terms and in terms of a % training data available is: 91.7197%
+the best hyperparameters of linear Model : C :42, Sigma:1,PolynomialOrder1,RMSE: 56.5431, Epsilon:0.8
+Use linear kernel method, the number of support vecorts in BM1 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+Use linear kernel method, the number of support vecorts in BM2 is :  144, absolute terms and in terms of a % training data available is: 91.7197%
+the best hyperparameters of linear Model : C :42, Sigma:1,PolynomialOrder1,RMSE: 55.7402, Epsilon:0.5
+Use linear kernel method, the number of support vecorts in BM1 is :  138, absolute terms and in terms of a % training data available is: 87.8981%
+Use linear kernel method, the number of support vecorts in BM2 is :  144, absolute terms and in terms of a % training data available is: 91.7197%
+the best hyperparameters of linear Model : C :45, Sigma:1,PolynomialOrder1,RMSE: 56.9699, Epsilon:0.5
+Use linear kernel method, the number of support vecorts in BM1 is :  105, absolute terms and in terms of a % training data available is: 66.879%
+Use linear kernel method, the number of support vecorts in BM2 is :  144, absolute terms and in terms of a % training data available is: 91.7197%
+the best hyperparameters of linear Model : C :42, Sigma:1,PolynomialOrder1,RMSE: 55.4123, Epsilon:1.4
+Use linear kernel method, the number of support vecorts in BM1 is :  108, absolute terms and in terms of a % training data available is: 68.7898%
+Use linear kernel method, the number of support vecorts in BM2 is :  140, absolute terms and in terms of a % training data available is: 89.172%
+the best hyperparameters of linear Model : C :41, Sigma:1,PolynomialOrder1,RMSE: 56.6963, Epsilon:1.4
+Use linear kernel method, the number of support vecorts in BM1 is :  108, absolute terms and in terms of a % training data available is: 68.7898%
+Use linear kernel method, the number of support vecorts in BM2 is :  141, absolute terms and in terms of a % training data available is: 89.8089%
+the best hyperparameters of linear Model : C :41, Sigma:1,PolynomialOrder1,RMSE: 55.1017, Epsilon:1.4
+Use linear kernel method, the number of support vecorts in BM1 is :  108, absolute terms and in terms of a % training data available is: 68.7898%
+Use linear kernel method, the number of support vecorts in BM2 is :  140, absolute terms and in terms of a % training data available is: 89.172%
+the best hyperparameters of linear Model : C :41, Sigma:1,PolynomialOrder1,RMSE: 54.8316, Epsilon:1.4
+Use linear kernel method, the number of support vecorts in BM1 is :  108, absolute terms and in terms of a % training data available is: 68.7898%
+Use linear kernel method, the number of support vecorts in BM2 is :  114, absolute terms and in terms of a % training data available is: 72.6115%
+the best hyperparameters of linear Model : C :41, Sigma:1,PolynomialOrder1,RMSE: 53.3272, Epsilon:1.4
+Use linear kernel method, the number of support vecorts in BM1 is :  108, absolute terms and in terms of a % training data available is: 68.7898%
+Use linear kernel method, the number of support vecorts in BM2 is :  141, absolute terms and in terms of a % training data available is: 89.8089%
+the best hyperparameters of linear Model : C :41, Sigma:1,PolynomialOrder1,RMSE: 51.098, Epsilon:1.4
+RMSEtr3=lostfunction;
+Dif= predict(BM,X_test)- Y_test;
+m= find(isnan(Dif));
+Dif(m,:)=[];
+RMSE = sqrt(sum(Dif.*Dif));
+RMSEtotal3=RMSEtotal3+RMSE;
+
+
+%% close log file
+
+diary off
+Use rbf kernel method, the number of support vecorts in BM1 is :  109, absolute terms and in terms of a % training data available is: 69.4268%
+Use rbf kernel method, the number of support vecorts in BM2 is :  119, absolute terms and in terms of a % training data available is: 75.7962%
+the best hyperparameters of rbf Model : C :44, Sigma:2.5,PolynomialOrder2.5,RMSE: 46.9849, Epsilon:1.1
+Use rbf kernel method, the number of support vecorts in BM1 is :  110, absolute terms and in terms of a % training data available is: 70.0637%
+Use rbf kernel method, the number of support vecorts in BM2 is :  119, absolute terms and in terms of a % training data available is: 75.7962%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,PolynomialOrder2.5,RMSE: 46.7932, Epsilon:1.1
+Use rbf kernel method, the number of support vecorts in BM1 is :  104, absolute terms and in terms of a % training data available is: 66.242%
+Use rbf kernel method, the number of support vecorts in BM2 is :  119, absolute terms and in terms of a % training data available is: 75.7962%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,PolynomialOrder2.5,RMSE: 46.7494, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use rbf kernel method, the number of support vecorts in BM2 is :  119, absolute terms and in terms of a % training data available is: 75.7962%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,PolynomialOrder2.5,RMSE: 46.9268, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  106, absolute terms and in terms of a % training data available is: 67.5159%
+Use rbf kernel method, the number of support vecorts in BM2 is :  119, absolute terms and in terms of a % training data available is: 75.7962%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,PolynomialOrder2.5,RMSE: 47.0057, Epsilon:1.1
+Use rbf kernel method, the number of support vecorts in BM1 is :  110, absolute terms and in terms of a % training data available is: 70.0637%
+Use rbf kernel method, the number of support vecorts in BM2 is :  119, absolute terms and in terms of a % training data available is: 75.7962%
+the best hyperparameters of rbf Model : C :44, Sigma:2.5,PolynomialOrder2.5,RMSE: 49.124, Epsilon:1.1
+Use rbf kernel method, the number of support vecorts in BM1 is :  110, absolute terms and in terms of a % training data available is: 70.0637%
+Use rbf kernel method, the number of support vecorts in BM2 is :  109, absolute terms and in terms of a % training data available is: 69.4268%
+the best hyperparameters of rbf Model : C :44, Sigma:2.5,PolynomialOrder2.5,RMSE: 49.9663, Epsilon:1.1
+Use rbf kernel method, the number of support vecorts in BM1 is :  110, absolute terms and in terms of a % training data available is: 70.0637%
+Use rbf kernel method, the number of support vecorts in BM2 is :  115, absolute terms and in terms of a % training data available is: 73.2484%
+the best hyperparameters of rbf Model : C :44, Sigma:2.5,PolynomialOrder2.5,RMSE: 49.0011, Epsilon:1.1
+Use rbf kernel method, the number of support vecorts in BM1 is :  110, absolute terms and in terms of a % training data available is: 70.0637%
+Use rbf kernel method, the number of support vecorts in BM2 is :  100, absolute terms and in terms of a % training data available is: 63.6943%
+the best hyperparameters of rbf Model : C :44, Sigma:2.5,PolynomialOrder2.5,RMSE: 48.6894, Epsilon:1.1
+Use rbf kernel method, the number of support vecorts in BM1 is :  110, absolute terms and in terms of a % training data available is: 70.0637%
+Use rbf kernel method, the number of support vecorts in BM2 is :  111, absolute terms and in terms of a % training data available is: 70.7006%
+the best hyperparameters of rbf Model : C :44, Sigma:2.5,PolynomialOrder2.5,RMSE: 51.273, Epsilon:1.1
+{错误使用 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fillIfNeeded', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 439)" style="font-weight:bold">classreg.learning.FitTemplate/fillIfNeeded</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',439,0)">第 439 行</a>)
+不匹配的参数名称 ' BoxConstraint' 必须为可表示字段名称的字符串标量或字符向量。
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 140)" style="font-weight:bold">classreg.learning.FitTemplate.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',140,0)">第 140 行</a>)
+            temp = fillIfNeeded(temp,type);
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.template', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 356)" style="font-weight:bold">RegressionSVM.template</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',356,0)">第 356 行</a>)
+            temp = classreg.learning.FitTemplate.make('SVM','type','regression',varargin{:});
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 350)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',350,0)">第 350 行</a>)
+            temp = RegressionSVM.template(varargin{:});
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 85)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',85,0)">第 85 行</a>)
+                   Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,' BoxConstraint',c(i),' PolynomialOrder:',p(k),'Epsilon:',e(o));
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 24)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',24,0)">第 24 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'Polynomial');
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 43)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',43,0)">第 43 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'Pol');
+} 
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'Pol');
+{错误使用 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fillIfNeeded', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 439)" style="font-weight:bold">classreg.learning.FitTemplate/fillIfNeeded</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',439,0)">第 439 行</a>)
+不匹配的参数名称 ' BoxConstraint' 必须为可表示字段名称的字符串标量或字符向量。
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 140)" style="font-weight:bold">classreg.learning.FitTemplate.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',140,0)">第 140 行</a>)
+            temp = fillIfNeeded(temp,type);
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.template', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 356)" style="font-weight:bold">RegressionSVM.template</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',356,0)">第 356 行</a>)
+            temp = classreg.learning.FitTemplate.make('SVM','type','regression',varargin{:});
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 350)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',350,0)">第 350 行</a>)
+            temp = RegressionSVM.template(varargin{:});
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 85)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',85,0)">第 85 行</a>)
+                   Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,' BoxConstraint',c(i),' PolynomialOrder:',p(k),'Epsilon:',e(o));
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 24)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',24,0)">第 24 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'Polynomial');
+} 
+matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fillIfNeeded', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 439)
+task2and3Regression
+dbcont
+Use rbf kernel method, the number of support vecorts in BM1 is :  126, absolute terms and in terms of a % training data available is: 80.2548%
+Use rbf kernel method, the number of support vecorts in BM2 is :  98, absolute terms and in terms of a % training data available is: 62.4204%
+{未识别类 'RegressionSVM' 的方法、属性或字段 'PolynomialOrder'。
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.internal.DisallowVectorOps/subsref', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+internal/DisallowVectorOps.m', 22)" style="font-weight:bold">classreg.learning.internal.DisallowVectorOps/subsref</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+internal/DisallowVectorOps.m',22,0)">第 22 行</a>)
+                [varargout{1:nargout}] = builtin('subsref',this,s);
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 48)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',48,0)">第 48 行</a>)
+    ANSWER = ['the best hyperparameters of ',Kernel, ' Model : C :',num2str(bestModel_inner.BoxConstraints(1)),', Sigma:', num2str(bestModel_inner.KernelParameters.Scale),',PolynomialOrder', num2str(bestModel_inner.PolynomialOrder.Scale),',RMSE: ',num2str(bestRMSE(1)),', Epsilon:',num2str(bestModel_inner.Epsilon)];
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 20)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',20,0)">第 20 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'rbf');
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 34)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',34,0)">第 34 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+} 
+task2and3Regression
+Use rbf kernel method, the number of support vecorts in BM1 is :  117, absolute terms and in terms of a % training data available is: 74.5223%
+Use rbf kernel method, the number of support vecorts in BM2 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,RMSE: 45.23, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+Use rbf kernel method, the number of support vecorts in BM2 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,RMSE: 45.4447, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  135, absolute terms and in terms of a % training data available is: 85.9873%
+Use rbf kernel method, the number of support vecorts in BM2 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,RMSE: 45.0242, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  121, absolute terms and in terms of a % training data available is: 77.0701%
+Use rbf kernel method, the number of support vecorts in BM2 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,RMSE: 45.343, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  117, absolute terms and in terms of a % training data available is: 74.5223%
+Use rbf kernel method, the number of support vecorts in BM2 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+the best hyperparameters of rbf Model : C :43, Sigma:2.5,RMSE: 45.5328, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+Use rbf kernel method, the number of support vecorts in BM2 is :  97, absolute terms and in terms of a % training data available is: 61.7834%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,RMSE: 43.5802, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  109, absolute terms and in terms of a % training data available is: 69.4268%
+Use rbf kernel method, the number of support vecorts in BM2 is :  94, absolute terms and in terms of a % training data available is: 59.8726%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,RMSE: 47.3041, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+Use rbf kernel method, the number of support vecorts in BM2 is :  137, absolute terms and in terms of a % training data available is: 87.2611%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,RMSE: 47.9125, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  102, absolute terms and in terms of a % training data available is: 64.9682%
+Use rbf kernel method, the number of support vecorts in BM2 is :  101, absolute terms and in terms of a % training data available is: 64.3312%
+the best hyperparameters of rbf Model : C :41, Sigma:2.5,RMSE: 46.0376, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+Use rbf kernel method, the number of support vecorts in BM2 is :  141, absolute terms and in terms of a % training data available is: 89.8089%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5,RMSE: 45.9449, Epsilon:0.5
+{错误使用 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fillIfNeeded', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 439)" style="font-weight:bold">classreg.learning.FitTemplate/fillIfNeeded</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',439,0)">第 439 行</a>)
+不匹配的参数名称 ' BoxConstraint' 必须为可表示字段名称的字符串标量或字符向量。
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 140)" style="font-weight:bold">classreg.learning.FitTemplate.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',140,0)">第 140 行</a>)
+            temp = fillIfNeeded(temp,type);
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.template', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 356)" style="font-weight:bold">RegressionSVM.template</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',356,0)">第 356 行</a>)
+            temp = classreg.learning.FitTemplate.make('SVM','type','regression',varargin{:});
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 350)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',350,0)">第 350 行</a>)
+            temp = RegressionSVM.template(varargin{:});
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 85)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',85,0)">第 85 行</a>)
+                   Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,' BoxConstraint',c(i),' PolynomialOrder:',p(k),'Epsilon:',e(o));
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 24)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',24,0)">第 24 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'Polynomial');
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 43)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',43,0)">第 43 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'Pol');
+} 
+task2and3Regression
+Use rbf kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use rbf kernel method, the number of support vecorts in BM2 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+the best hyperparameters of rbf Model : C :42, Sigma:2.5, RMSE: 53.6636, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  101, absolute terms and in terms of a % training data available is: 64.3312%
+Use rbf kernel method, the number of support vecorts in BM2 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+the best hyperparameters of rbf Model : C :43, Sigma:2.5, RMSE: 54.0208, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  135, absolute terms and in terms of a % training data available is: 85.9873%
+Use rbf kernel method, the number of support vecorts in BM2 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5, RMSE: 53.8406, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  104, absolute terms and in terms of a % training data available is: 66.242%
+Use rbf kernel method, the number of support vecorts in BM2 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+the best hyperparameters of rbf Model : C :44, Sigma:2.5, RMSE: 53.2001, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  105, absolute terms and in terms of a % training data available is: 66.879%
+Use rbf kernel method, the number of support vecorts in BM2 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5, RMSE: 53.3193, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  140, absolute terms and in terms of a % training data available is: 89.172%
+Use rbf kernel method, the number of support vecorts in BM2 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5, RMSE: 54.1609, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  140, absolute terms and in terms of a % training data available is: 89.172%
+Use rbf kernel method, the number of support vecorts in BM2 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5, RMSE: 48.6747, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  140, absolute terms and in terms of a % training data available is: 89.172%
+Use rbf kernel method, the number of support vecorts in BM2 is :  137, absolute terms and in terms of a % training data available is: 87.2611%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5, RMSE: 55.0574, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  140, absolute terms and in terms of a % training data available is: 89.172%
+Use rbf kernel method, the number of support vecorts in BM2 is :  135, absolute terms and in terms of a % training data available is: 85.9873%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5, RMSE: 55.9048, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  140, absolute terms and in terms of a % training data available is: 89.172%
+Use rbf kernel method, the number of support vecorts in BM2 is :  135, absolute terms and in terms of a % training data available is: 85.9873%
+the best hyperparameters of rbf Model : C :45, Sigma:2.5, RMSE: 51.4009, Epsilon:0.5
+{错误使用 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fillIfNeeded', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 439)" style="font-weight:bold">classreg.learning.FitTemplate/fillIfNeeded</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',439,0)">第 439 行</a>)
+不匹配的参数名称 ' BoxConstraint' 必须为可表示字段名称的字符串标量或字符向量。
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 140)" style="font-weight:bold">classreg.learning.FitTemplate.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',140,0)">第 140 行</a>)
+            temp = fillIfNeeded(temp,type);
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.template', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 356)" style="font-weight:bold">RegressionSVM.template</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',356,0)">第 356 行</a>)
+            temp = classreg.learning.FitTemplate.make('SVM','type','regression',varargin{:});
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 350)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',350,0)">第 350 行</a>)
+            temp = RegressionSVM.template(varargin{:});
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 85)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',85,0)">第 85 行</a>)
+                   Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,' BoxConstraint',c(i),' PolynomialOrder:',p(k),'Epsilon:',e(o));
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 24)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',24,0)">第 24 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'Polynomial');
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 43)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',43,0)">第 43 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'Pol');
+} 
+task2and3Regression
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 71)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',71,0)">第 71 行</a>)
+                    Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'KernelScale',d(j),'BoxConstraint',c(i),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 20)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',20,0)">第 20 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'rbf');
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 34)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',34,0)">第 34 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+} 
+task2and3Regression
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 71)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',71,0)">第 71 行</a>)
+                    Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'KernelScale',d(j),'BoxConstraint',c(i),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 26)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',26,0)">第 26 行</a>)
+    bestModel = RegOptimise(X2_martix,Y2_martix,X1_martix,Y1_martix, Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 20)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',20,0)">第 20 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'rbf');
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 34)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',34,0)">第 34 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+} 
+task2and3Regression
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 71)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',71,0)">第 71 行</a>)
+                    Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'KernelScale',d(j),'BoxConstraint',c(i),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 20)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',20,0)">第 20 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'rbf');
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 34)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',34,0)">第 34 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+} 
+task2and3Regression
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 71)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',71,0)">第 71 行</a>)
+                    Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'KernelScale',d(j),'BoxConstraint',c(i),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 20)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',20,0)">第 20 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'rbf');
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 34)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',34,0)">第 34 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+} 
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 71)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',71,0)">第 71 行</a>)
+                    Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'KernelScale',d(j),'BoxConstraint',c(i),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 20)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',20,0)">第 20 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'rbf');
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 34)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',34,0)">第 34 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+} 
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 71)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',71,0)">第 71 行</a>)
+                    Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'KernelScale',d(j),'BoxConstraint',c(i),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 20)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',20,0)">第 20 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'rbf');
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 34)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',34,0)">第 34 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+} 
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.desktop.editor.RtcEditorDocument>openUsingOpenFileInAppropriateEditor', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/+matlab/+desktop/+editor/@RtcEditorDocument/RtcEditorDocument.m', 589)" style="font-weight:bold">matlab.desktop.editor.RtcEditorDocument>openUsingOpenFileInAppropriateEditor</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/+matlab/+desktop/+editor/@RtcEditorDocument/RtcEditorDocument.m',589,0)">第 589 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.desktop.editor.RtcEditorDocument>@(file)openUsingOpenFileInAppropriateEditor(file)', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/+matlab/+desktop/+editor/@RtcEditorDocument/RtcEditorDocument.m', 138)" style="font-weight:bold">matlab.desktop.editor.RtcEditorDocument>@(file)openUsingOpenFileInAppropriateEditor(file)</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/+matlab/+desktop/+editor/@RtcEditorDocument/RtcEditorDocument.m',138,0)">第 138 行</a>)
+                obj = openEditorViaFunction(filename, @(file)openUsingOpenFileInAppropriateEditor(file), false);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.desktop.editor.RtcEditorDocument>openEditorViaFunction', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/+matlab/+desktop/+editor/@RtcEditorDocument/RtcEditorDocument.m', 611)" style="font-weight:bold">matlab.desktop.editor.RtcEditorDocument>openEditorViaFunction</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/+matlab/+desktop/+editor/@RtcEditorDocument/RtcEditorDocument.m',611,0)">第 611 行</a>)
+        liveEditorClient = openMethod(javaFile);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.desktop.editor.RtcEditorDocument.openEditor', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/+matlab/+desktop/+editor/@RtcEditorDocument/RtcEditorDocument.m', 138)" style="font-weight:bold">matlab.desktop.editor.RtcEditorDocument.openEditor</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/+matlab/+desktop/+editor/@RtcEditorDocument/RtcEditorDocument.m',138,0)">第 138 行</a>)
+                obj = openEditorViaFunction(filename, @(file)openUsingOpenFileInAppropriateEditor(file), false);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.desktop.editor.DocumentUtils.openEditor', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/+matlab/+desktop/+editor/@DocumentUtils/DocumentUtils.m', 28)" style="font-weight:bold">matlab.desktop.editor.DocumentUtils.openEditor</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/+matlab/+desktop/+editor/@DocumentUtils/DocumentUtils.m',28,0)">第 28 行</a>)
+            obj = matlab.desktop.editor.(getEditorDocumentClassNameForFile(filename)).openEditor(filename);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.desktop.editor.Document.openEditor', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/+matlab/+desktop/+editor/@Document/Document.m', 299)" style="font-weight:bold">matlab.desktop.editor.Document.openEditor</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/+matlab/+desktop/+editor/@Document/Document.m',299,0)">第 299 行</a>)
+            editorObj = matlab.desktop.editor.DocumentUtils.openEditor(filename);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('edit>openEditor', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/edit.m', 238)" style="font-weight:bold">edit>openEditor</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/edit.m',238,0)">第 238 行</a>)
+                matlab.desktop.editor.Document.openEditor(file);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('edit>openWithFileSystem', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/edit.m', 493)" style="font-weight:bold">edit>openWithFileSystem</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/edit.m',493,0)">第 493 行</a>)
+    openEditor(pathName);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('edit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/edit.m', 46)" style="font-weight:bold">edit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/codetools/edit.m',46,0)">第 46 行</a>)
+                    if ~openWithFileSystem(argName, ~isSimpleFile(argName))
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('openm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/general/private/openm.m', 11)" style="font-weight:bold">openm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/general/private/openm.m',11,0)">第 11 行</a>)
+edit(filename)
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('open', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/general/open.m', 139)" style="font-weight:bold">open</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/general/open.m',139,0)">第 139 行</a>)
+            feval(openAction,fullpath); %#ok<FVAL> not a function handle
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('uiopen', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/uitools/uiopen.m', 162)" style="font-weight:bold">uiopen</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/matlab/uitools/uiopen.m',162,0)">第 162 行</a>)
+        open(fn);
+} 
+task2and3Regression
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 71)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',71,0)">第 71 行</a>)
+                    Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'KernelScale',d(j),'BoxConstraint',c(i),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 26)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',26,0)">第 26 行</a>)
+    bestModel = RegOptimise(X2_martix,Y2_martix,X1_martix,Y1_martix, Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 20)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',20,0)">第 20 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'rbf');
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 34)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',34,0)">第 34 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+} 
+task2and3Regression
+Use rbf kernel method, the number of support vecorts in BM1 is :  108, absolute terms and in terms of a % training data available is: 68.7898%
+Use rbf kernel method, the number of support vecorts in BM2 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+the best hyperparameters of rbf Model : C :35, Sigma:2, RMSE: 51.8961, Epsilon:1
+Use rbf kernel method, the number of support vecorts in BM1 is :  112, absolute terms and in terms of a % training data available is: 71.3376%
+Use rbf kernel method, the number of support vecorts in BM2 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+the best hyperparameters of rbf Model : C :40, Sigma:1, RMSE: 51.8284, Epsilon:1
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 71)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',71,0)">第 71 行</a>)
+                    Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'KernelScale',d(j),'BoxConstraint',c(i),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 20)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',20,0)">第 20 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'rbf');
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 34)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',34,0)">第 34 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+} 
+task2and3Regression
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 71)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',71,0)">第 71 行</a>)
+                    Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'KernelScale',d(j),'BoxConstraint',c(i),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 20)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',20,0)">第 20 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'rbf');
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 34)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',34,0)">第 34 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+} 
+task2and3Regression
+Use rbf kernel method, the number of support vecorts in BM1 is :  108, absolute terms and in terms of a % training data available is: 68.7898%
+Use rbf kernel method, the number of support vecorts in BM2 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+the best hyperparameters of rbf Model : C :45, Sigma:2, RMSE: 53.8572, Epsilon:1
+Use rbf kernel method, the number of support vecorts in BM1 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+Use rbf kernel method, the number of support vecorts in BM2 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+the best hyperparameters of rbf Model : C :44, Sigma:2, RMSE: 53.9957, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  132, absolute terms and in terms of a % training data available is: 84.0764%
+Use rbf kernel method, the number of support vecorts in BM2 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+the best hyperparameters of rbf Model : C :36, Sigma:2, RMSE: 53.5532, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use rbf kernel method, the number of support vecorts in BM2 is :  97, absolute terms and in terms of a % training data available is: 61.7834%
+the best hyperparameters of rbf Model : C :35, Sigma:2, RMSE: 54.0473, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use rbf kernel method, the number of support vecorts in BM2 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+the best hyperparameters of rbf Model : C :41, Sigma:1, RMSE: 53.2986, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  95, absolute terms and in terms of a % training data available is: 60.5096%
+Use rbf kernel method, the number of support vecorts in BM2 is :  111, absolute terms and in terms of a % training data available is: 70.7006%
+the best hyperparameters of rbf Model : C :37, Sigma:1, RMSE: 54.5878, Epsilon:1.5
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 71)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',71,0)">第 71 行</a>)
+                    Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'KernelScale',d(j),'BoxConstraint',c(i),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 26)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',26,0)">第 26 行</a>)
+    bestModel = RegOptimise(X2_martix,Y2_martix,X1_martix,Y1_martix, Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 20)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',20,0)">第 20 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'rbf');
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 34)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',34,0)">第 34 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'rbf');
+} 
+task2and3Regression
+Use rbf kernel method, the number of support vecorts in BM1 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+Use rbf kernel method, the number of support vecorts in BM2 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+the best hyperparameters of rbf Model : C :42, Sigma:1, RMSE: 45.9427, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  140, absolute terms and in terms of a % training data available is: 89.172%
+Use rbf kernel method, the number of support vecorts in BM2 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+the best hyperparameters of rbf Model : C :36, Sigma:1, RMSE: 45.8625, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  127, absolute terms and in terms of a % training data available is: 80.8917%
+Use rbf kernel method, the number of support vecorts in BM2 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+the best hyperparameters of rbf Model : C :37, Sigma:1.2, RMSE: 46.0434, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  124, absolute terms and in terms of a % training data available is: 78.9809%
+Use rbf kernel method, the number of support vecorts in BM2 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+the best hyperparameters of rbf Model : C :35, Sigma:1, RMSE: 45.8547, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  100, absolute terms and in terms of a % training data available is: 63.6943%
+Use rbf kernel method, the number of support vecorts in BM2 is :  96, absolute terms and in terms of a % training data available is: 61.1465%
+the best hyperparameters of rbf Model : C :38, Sigma:1, RMSE: 45.8575, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  98, absolute terms and in terms of a % training data available is: 62.4204%
+Use rbf kernel method, the number of support vecorts in BM2 is :  117, absolute terms and in terms of a % training data available is: 74.5223%
+the best hyperparameters of rbf Model : C :42, Sigma:1, RMSE: 46.9853, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  98, absolute terms and in terms of a % training data available is: 62.4204%
+Use rbf kernel method, the number of support vecorts in BM2 is :  133, absolute terms and in terms of a % training data available is: 84.7134%
+the best hyperparameters of rbf Model : C :42, Sigma:1, RMSE: 47.9563, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  98, absolute terms and in terms of a % training data available is: 62.4204%
+Use rbf kernel method, the number of support vecorts in BM2 is :  124, absolute terms and in terms of a % training data available is: 78.9809%
+the best hyperparameters of rbf Model : C :42, Sigma:1, RMSE: 47.201, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  98, absolute terms and in terms of a % training data available is: 62.4204%
+Use rbf kernel method, the number of support vecorts in BM2 is :  109, absolute terms and in terms of a % training data available is: 69.4268%
+the best hyperparameters of rbf Model : C :42, Sigma:1, RMSE: 46.9293, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  98, absolute terms and in terms of a % training data available is: 62.4204%
+Use rbf kernel method, the number of support vecorts in BM2 is :  113, absolute terms and in terms of a % training data available is: 71.9745%
+the best hyperparameters of rbf Model : C :42, Sigma:1, RMSE: 49.8743, Epsilon:1.4
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  135, absolute terms and in terms of a % training data available is: 85.9873%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  115, absolute terms and in terms of a % training data available is: 73.2484%
+the best hyperparameters of Polynomial Model : C :44, Sigma:1, RMSE: 46.2845, Epsilon:0.5
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  135, absolute terms and in terms of a % training data available is: 85.9873%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  115, absolute terms and in terms of a % training data available is: 73.2484%
+the best hyperparameters of Polynomial Model : C :35, Sigma:1, RMSE: 46.1083, Epsilon:0.5
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  119, absolute terms and in terms of a % training data available is: 75.7962%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  115, absolute terms and in terms of a % training data available is: 73.2484%
+the best hyperparameters of Polynomial Model : C :43, Sigma:1, RMSE: 46.2007, Epsilon:1.1
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 85)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',85,0)">第 85 行</a>)
+                   Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'BoxConstraint',c(i),'PolynomialOrder',p(k),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 24)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',24,0)">第 24 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'Polynomial');
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 43)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',43,0)">第 43 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'Pol');
+} 
+task2and3Regression
+Use rbf kernel method, the number of support vecorts in BM1 is :  114, absolute terms and in terms of a % training data available is: 72.6115%
+Use rbf kernel method, the number of support vecorts in BM2 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+the best hyperparameters of rbf Model : C :35, Sigma:0.3, RMSE: 50.2839, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  100, absolute terms and in terms of a % training data available is: 63.6943%
+Use rbf kernel method, the number of support vecorts in BM2 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+the best hyperparameters of rbf Model : C :41, Sigma:0.7, RMSE: 51.1393, Epsilon:1.4
+Use rbf kernel method, the number of support vecorts in BM1 is :  127, absolute terms and in terms of a % training data available is: 80.8917%
+Use rbf kernel method, the number of support vecorts in BM2 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+the best hyperparameters of rbf Model : C :37, Sigma:1.1, RMSE: 53.6965, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  135, absolute terms and in terms of a % training data available is: 85.9873%
+Use rbf kernel method, the number of support vecorts in BM2 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+the best hyperparameters of rbf Model : C :35, Sigma:1.1, RMSE: 52.0806, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  124, absolute terms and in terms of a % training data available is: 78.9809%
+Use rbf kernel method, the number of support vecorts in BM2 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+the best hyperparameters of rbf Model : C :42, Sigma:0.9, RMSE: 52.6509, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use rbf kernel method, the number of support vecorts in BM2 is :  92, absolute terms and in terms of a % training data available is: 58.5987%
+the best hyperparameters of rbf Model : C :44, Sigma:1.1, RMSE: 52.8812, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use rbf kernel method, the number of support vecorts in BM2 is :  93, absolute terms and in terms of a % training data available is: 59.2357%
+the best hyperparameters of rbf Model : C :44, Sigma:1.1, RMSE: 50.916, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  135, absolute terms and in terms of a % training data available is: 85.9873%
+Use rbf kernel method, the number of support vecorts in BM2 is :  91, absolute terms and in terms of a % training data available is: 57.9618%
+the best hyperparameters of rbf Model : C :42, Sigma:1.1, RMSE: 52.7121, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use rbf kernel method, the number of support vecorts in BM2 is :  111, absolute terms and in terms of a % training data available is: 70.7006%
+the best hyperparameters of rbf Model : C :44, Sigma:1.1, RMSE: 55.0903, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use rbf kernel method, the number of support vecorts in BM2 is :  93, absolute terms and in terms of a % training data available is: 59.2357%
+the best hyperparameters of rbf Model : C :44, Sigma:1.1, RMSE: 50.4136, Epsilon:0.5
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  138, absolute terms and in terms of a % training data available is: 87.8981%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  116, absolute terms and in terms of a % training data available is: 73.8854%
+the best hyperparameters of Polynomial Model : C :36, Sigma:1, RMSE: 51.9472, Epsilon:0.5
+{操作在以下过程中被用户终止 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl>iDispatchSolve', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 710)" style="font-weight:bold">classreg.learning.impl.SVMImpl>iDispatchSolve</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',710,0)">第 710 行</a>)
+
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 573)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',573,0)">第 573 行</a>)
+                    iDispatchSolve(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 314)" style="font-weight:bold">RegressionSVM</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',314,0)">第 314 行</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 291)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',291,0)">第 291 行</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('RegressionSVM.fit', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m', 351)" style="font-weight:bold">RegressionSVM.fit</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/RegressionSVM.m',351,0)">第 351 行</a>)
+            this = fit(temp,X,Y);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitrsvm', '/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m', 280)" style="font-weight:bold">fitrsvm</a> (<a href="matlab: opentoline('/Users/peijialong/Downloads/MATLAB_R2021b.app/toolbox/stats/classreg/fitrsvm.m',280,0)">第 280 行</a>)
+    obj = RegressionSVM.fit(X,Y,RemainingArgs{:});
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg>RegOptimise', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 85)" style="font-weight:bold">InnerOptimiseReg>RegOptimise</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',85,0)">第 85 行</a>)
+                   Mdl = fitrsvm(dataSet,label,'KernelFunction',Kernel,'BoxConstraint',c(i),'PolynomialOrder',p(k),'Epsilon',e(o));
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('InnerOptimiseReg', '/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m', 18)" style="font-weight:bold">InnerOptimiseReg</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/InnerOptimiseReg.m',18,0)">第 18 行</a>)
+    bestModel = RegOptimise(X1_martix,Y1_martix,X2_martix,Y2_martix,Kernel);
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Crossvalidation', '/Users/peijialong/Desktop/Regression/Crossvalidation.m', 24)" style="font-weight:bold">Crossvalidation</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/Crossvalidation.m',24,0)">第 24 行</a>)
+            bestModel_inner = InnerOptimiseReg(trainset,trainlabel,'Polynomial');
+
+位置 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('task2and3Regression', '/Users/peijialong/Desktop/Regression/task2and3Regression.m', 43)" style="font-weight:bold">task2and3Regression</a> (<a href="matlab: opentoline('/Users/peijialong/Desktop/Regression/task2and3Regression.m',43,0)">第 43 行</a>)
+[lostfunction,BM]=Crossvalidation(X_train,Y_train,10,'Pol');
+} 
+task2and3Regression
+Use rbf kernel method, the number of support vecorts in BM1 is :  130, absolute terms and in terms of a % training data available is: 82.8025%
+Use rbf kernel method, the number of support vecorts in BM2 is :  112, absolute terms and in terms of a % training data available is: 71.3376%
+the best hyperparameters of rbf Model : C :38, Sigma:0.7, RMSE: 44.4126, Epsilon:0.7
+Use rbf kernel method, the number of support vecorts in BM1 is :  123, absolute terms and in terms of a % training data available is: 78.3439%
+Use rbf kernel method, the number of support vecorts in BM2 is :  112, absolute terms and in terms of a % training data available is: 71.3376%
+the best hyperparameters of rbf Model : C :40, Sigma:1.5, RMSE: 44.8834, Epsilon:0.9
+Use rbf kernel method, the number of support vecorts in BM1 is :  125, absolute terms and in terms of a % training data available is: 79.6178%
+Use rbf kernel method, the number of support vecorts in BM2 is :  112, absolute terms and in terms of a % training data available is: 71.3376%
+the best hyperparameters of rbf Model : C :37, Sigma:1.9, RMSE: 44.7057, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  130, absolute terms and in terms of a % training data available is: 82.8025%
+Use rbf kernel method, the number of support vecorts in BM2 is :  110, absolute terms and in terms of a % training data available is: 70.0637%
+the best hyperparameters of rbf Model : C :44, Sigma:1.5, RMSE: 44.9351, Epsilon:0.6
+Use rbf kernel method, the number of support vecorts in BM1 is :  115, absolute terms and in terms of a % training data available is: 73.2484%
+Use rbf kernel method, the number of support vecorts in BM2 is :  112, absolute terms and in terms of a % training data available is: 71.3376%
+the best hyperparameters of rbf Model : C :43, Sigma:1.1, RMSE: 44.7295, Epsilon:1
+Use rbf kernel method, the number of support vecorts in BM1 is :  112, absolute terms and in terms of a % training data available is: 71.3376%
+Use rbf kernel method, the number of support vecorts in BM2 is :  137, absolute terms and in terms of a % training data available is: 87.2611%
+the best hyperparameters of rbf Model : C :39, Sigma:0.9, RMSE: 42.8171, Epsilon:1
+Use rbf kernel method, the number of support vecorts in BM1 is :  111, absolute terms and in terms of a % training data available is: 70.7006%
+Use rbf kernel method, the number of support vecorts in BM2 is :  142, absolute terms and in terms of a % training data available is: 90.4459%
+the best hyperparameters of rbf Model : C :35, Sigma:1.9, RMSE: 47.2217, Epsilon:1
+Use rbf kernel method, the number of support vecorts in BM1 is :  112, absolute terms and in terms of a % training data available is: 71.3376%
+Use rbf kernel method, the number of support vecorts in BM2 is :  115, absolute terms and in terms of a % training data available is: 73.2484%
+the best hyperparameters of rbf Model : C :39, Sigma:0.9, RMSE: 47.4148, Epsilon:1
+Use rbf kernel method, the number of support vecorts in BM1 is :  113, absolute terms and in terms of a % training data available is: 71.9745%
+Use rbf kernel method, the number of support vecorts in BM2 is :  114, absolute terms and in terms of a % training data available is: 72.6115%
+the best hyperparameters of rbf Model : C :45, Sigma:1.9, RMSE: 45.7164, Epsilon:1
+Use rbf kernel method, the number of support vecorts in BM1 is :  125, absolute terms and in terms of a % training data available is: 79.6178%
+Use rbf kernel method, the number of support vecorts in BM2 is :  114, absolute terms and in terms of a % training data available is: 72.6115%
+the best hyperparameters of rbf Model : C :44, Sigma:1.9, RMSE: 45.8346, Epsilon:0.5
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  122, absolute terms and in terms of a % training data available is: 77.707%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  122, absolute terms and in terms of a % training data available is: 77.707%
+the best hyperparameters of Polynomial Model : C :44, Sigma:1, RMSE: 44.5345, Epsilon:0.8
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  122, absolute terms and in terms of a % training data available is: 77.707%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  122, absolute terms and in terms of a % training data available is: 77.707%
+the best hyperparameters of Polynomial Model : C :36, Sigma:1, RMSE: 44.9517, Epsilon:1
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  128, absolute terms and in terms of a % training data available is: 81.5287%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  122, absolute terms and in terms of a % training data available is: 77.707%
+the best hyperparameters of Polynomial Model : C :35, Sigma:1, RMSE: 44.7938, Epsilon:0.7
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  114, absolute terms and in terms of a % training data available is: 72.6115%
+the best hyperparameters of Polynomial Model : C :35, Sigma:1, RMSE: 44.9439, Epsilon:0.6
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  114, absolute terms and in terms of a % training data available is: 72.6115%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  122, absolute terms and in terms of a % training data available is: 77.707%
+the best hyperparameters of Polynomial Model : C :44, Sigma:1, RMSE: 44.6107, Epsilon:1
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  115, absolute terms and in terms of a % training data available is: 73.2484%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  117, absolute terms and in terms of a % training data available is: 74.5223%
+the best hyperparameters of Polynomial Model : C :42, Sigma:1, RMSE: 42.7418, Epsilon:1
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  118, absolute terms and in terms of a % training data available is: 75.1592%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+the best hyperparameters of Polynomial Model : C :40, Sigma:1, RMSE: 47.0825, Epsilon:0.9
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  118, absolute terms and in terms of a % training data available is: 75.1592%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  113, absolute terms and in terms of a % training data available is: 71.9745%
+the best hyperparameters of Polynomial Model : C :44, Sigma:1, RMSE: 47.3515, Epsilon:0.9
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  115, absolute terms and in terms of a % training data available is: 73.2484%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  123, absolute terms and in terms of a % training data available is: 78.3439%
+the best hyperparameters of Polynomial Model : C :40, Sigma:1, RMSE: 45.4975, Epsilon:1
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  118, absolute terms and in terms of a % training data available is: 75.1592%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  116, absolute terms and in terms of a % training data available is: 73.8854%
+the best hyperparameters of Polynomial Model : C :40, Sigma:1, RMSE: 45.6859, Epsilon:0.9
+Use linear kernel method, the number of support vecorts in BM1 is :  137, absolute terms and in terms of a % training data available is: 87.2611%
+Use linear kernel method, the number of support vecorts in BM2 is :  118, absolute terms and in terms of a % training data available is: 75.1592%
+the best hyperparameters of linear Model : C :35, Sigma:1, RMSE: 47.632, Epsilon:0.5
+Use linear kernel method, the number of support vecorts in BM1 is :  130, absolute terms and in terms of a % training data available is: 82.8025%
+Use linear kernel method, the number of support vecorts in BM2 is :  118, absolute terms and in terms of a % training data available is: 75.1592%
+the best hyperparameters of linear Model : C :39, Sigma:1, RMSE: 47.7953, Epsilon:0.6
+Use linear kernel method, the number of support vecorts in BM1 is :  125, absolute terms and in terms of a % training data available is: 79.6178%
+Use linear kernel method, the number of support vecorts in BM2 is :  120, absolute terms and in terms of a % training data available is: 76.4331%
+the best hyperparameters of linear Model : C :43, Sigma:1, RMSE: 47.8057, Epsilon:0.9
+Use linear kernel method, the number of support vecorts in BM1 is :  126, absolute terms and in terms of a % training data available is: 80.2548%
+Use linear kernel method, the number of support vecorts in BM2 is :  120, absolute terms and in terms of a % training data available is: 76.4331%
+the best hyperparameters of linear Model : C :39, Sigma:1, RMSE: 48.3512, Epsilon:1
+Use linear kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use linear kernel method, the number of support vecorts in BM2 is :  118, absolute terms and in terms of a % training data available is: 75.1592%
+the best hyperparameters of linear Model : C :37, Sigma:1, RMSE: 48.1248, Epsilon:0.6
+Use linear kernel method, the number of support vecorts in BM1 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+Use linear kernel method, the number of support vecorts in BM2 is :  138, absolute terms and in terms of a % training data available is: 87.8981%
+the best hyperparameters of linear Model : C :37, Sigma:1, RMSE: 46.2712, Epsilon:0.6
+Use linear kernel method, the number of support vecorts in BM1 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+Use linear kernel method, the number of support vecorts in BM2 is :  117, absolute terms and in terms of a % training data available is: 74.5223%
+the best hyperparameters of linear Model : C :37, Sigma:1, RMSE: 49.0587, Epsilon:0.6
+Use linear kernel method, the number of support vecorts in BM1 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+Use linear kernel method, the number of support vecorts in BM2 is :  138, absolute terms and in terms of a % training data available is: 87.8981%
+the best hyperparameters of linear Model : C :37, Sigma:1, RMSE: 50.2501, Epsilon:0.6
+Use linear kernel method, the number of support vecorts in BM1 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+Use linear kernel method, the number of support vecorts in BM2 is :  138, absolute terms and in terms of a % training data available is: 87.8981%
+the best hyperparameters of linear Model : C :37, Sigma:1, RMSE: 48.1829, Epsilon:0.6
+Use linear kernel method, the number of support vecorts in BM1 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+Use linear kernel method, the number of support vecorts in BM2 is :  141, absolute terms and in terms of a % training data available is: 89.8089%
+the best hyperparameters of linear Model : C :37, Sigma:1, RMSE: 48.0809, Epsilon:0.6
+Use rbf kernel method, the number of support vecorts in BM1 is :  128, absolute terms and in terms of a % training data available is: 81.5287%
+Use rbf kernel method, the number of support vecorts in BM2 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+the best hyperparameters of rbf Model : C :44, Sigma:0.7, RMSE: 50.0359, Epsilon:0.8
+Use rbf kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use rbf kernel method, the number of support vecorts in BM2 is :  132, absolute terms and in terms of a % training data available is: 84.0764%
+the best hyperparameters of rbf Model : C :37, Sigma:0.3, RMSE: 50.4628, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  124, absolute terms and in terms of a % training data available is: 78.9809%
+Use rbf kernel method, the number of support vecorts in BM2 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+the best hyperparameters of rbf Model : C :44, Sigma:0.3, RMSE: 50.4125, Epsilon:0.7
+Use rbf kernel method, the number of support vecorts in BM1 is :  118, absolute terms and in terms of a % training data available is: 75.1592%
+Use rbf kernel method, the number of support vecorts in BM2 is :  132, absolute terms and in terms of a % training data available is: 84.0764%
+the best hyperparameters of rbf Model : C :44, Sigma:0.3, RMSE: 49.8879, Epsilon:0.9
+Use rbf kernel method, the number of support vecorts in BM1 is :  122, absolute terms and in terms of a % training data available is: 77.707%
+Use rbf kernel method, the number of support vecorts in BM2 is :  132, absolute terms and in terms of a % training data available is: 84.0764%
+the best hyperparameters of rbf Model : C :45, Sigma:0.5, RMSE: 49.3925, Epsilon:0.9
+Use rbf kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use rbf kernel method, the number of support vecorts in BM2 is :  118, absolute terms and in terms of a % training data available is: 75.1592%
+the best hyperparameters of rbf Model : C :35, Sigma:0.3, RMSE: 49.8139, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use rbf kernel method, the number of support vecorts in BM2 is :  113, absolute terms and in terms of a % training data available is: 71.9745%
+the best hyperparameters of rbf Model : C :35, Sigma:0.3, RMSE: 45.5306, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use rbf kernel method, the number of support vecorts in BM2 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+the best hyperparameters of rbf Model : C :35, Sigma:0.3, RMSE: 50.8457, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use rbf kernel method, the number of support vecorts in BM2 is :  116, absolute terms and in terms of a % training data available is: 73.8854%
+the best hyperparameters of rbf Model : C :35, Sigma:0.3, RMSE: 51.419, Epsilon:0.5
+Use rbf kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use rbf kernel method, the number of support vecorts in BM2 is :  135, absolute terms and in terms of a % training data available is: 85.9873%
+the best hyperparameters of rbf Model : C :35, Sigma:0.3, RMSE: 48.271, Epsilon:0.5
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  120, absolute terms and in terms of a % training data available is: 76.4331%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  121, absolute terms and in terms of a % training data available is: 77.0701%
+the best hyperparameters of Polynomial Model : C :37, Sigma:1, RMSE: 51.5223, Epsilon:1
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  113, absolute terms and in terms of a % training data available is: 71.9745%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  120, absolute terms and in terms of a % training data available is: 76.4331%
+the best hyperparameters of Polynomial Model : C :44, Sigma:1, RMSE: 52.0279, Epsilon:1
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  122, absolute terms and in terms of a % training data available is: 77.707%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  121, absolute terms and in terms of a % training data available is: 77.0701%
+the best hyperparameters of Polynomial Model : C :43, Sigma:1, RMSE: 51.4206, Epsilon:0.8
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  119, absolute terms and in terms of a % training data available is: 75.7962%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  120, absolute terms and in terms of a % training data available is: 76.4331%
+the best hyperparameters of Polynomial Model : C :41, Sigma:1, RMSE: 51.1888, Epsilon:1
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  120, absolute terms and in terms of a % training data available is: 76.4331%
+the best hyperparameters of Polynomial Model : C :41, Sigma:1, RMSE: 51.3859, Epsilon:0.5
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  119, absolute terms and in terms of a % training data available is: 75.7962%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  113, absolute terms and in terms of a % training data available is: 71.9745%
+the best hyperparameters of Polynomial Model : C :40, Sigma:1, RMSE: 52.4749, Epsilon:1
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  135, absolute terms and in terms of a % training data available is: 85.9873%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  107, absolute terms and in terms of a % training data available is: 68.1529%
+the best hyperparameters of Polynomial Model : C :42, Sigma:1, RMSE: 47.2635, Epsilon:0.5
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  132, absolute terms and in terms of a % training data available is: 84.0764%
+the best hyperparameters of Polynomial Model : C :43, Sigma:1, RMSE: 53.3411, Epsilon:0.6
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  121, absolute terms and in terms of a % training data available is: 77.0701%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  119, absolute terms and in terms of a % training data available is: 75.7962%
+the best hyperparameters of Polynomial Model : C :43, Sigma:1, RMSE: 54.3058, Epsilon:0.9
+Use Polynomial kernel method, the number of support vecorts in BM1 is :  121, absolute terms and in terms of a % training data available is: 77.0701%
+Use Polynomial kernel method, the number of support vecorts in BM2 is :  125, absolute terms and in terms of a % training data available is: 79.6178%
+the best hyperparameters of Polynomial Model : C :43, Sigma:1, RMSE: 49.6435, Epsilon:0.9
+Use linear kernel method, the number of support vecorts in BM1 is :  129, absolute terms and in terms of a % training data available is: 82.1656%
+Use linear kernel method, the number of support vecorts in BM2 is :  119, absolute terms and in terms of a % training data available is: 75.7962%
+the best hyperparameters of linear Model : C :40, Sigma:1, RMSE: 56.6265, Epsilon:0.9
+Use linear kernel method, the number of support vecorts in BM1 is :  121, absolute terms and in terms of a % training data available is: 77.0701%
+Use linear kernel method, the number of support vecorts in BM2 is :  120, absolute terms and in terms of a % training data available is: 76.4331%
+the best hyperparameters of linear Model : C :39, Sigma:1, RMSE: 56.8787, Epsilon:0.8
+Use linear kernel method, the number of support vecorts in BM1 is :  124, absolute terms and in terms of a % training data available is: 78.9809%
+Use linear kernel method, the number of support vecorts in BM2 is :  120, absolute terms and in terms of a % training data available is: 76.4331%
+the best hyperparameters of linear Model : C :44, Sigma:1, RMSE: 56.8056, Epsilon:0.9
+Use linear kernel method, the number of support vecorts in BM1 is :  124, absolute terms and in terms of a % training data available is: 78.9809%
+Use linear kernel method, the number of support vecorts in BM2 is :  120, absolute terms and in terms of a % training data available is: 76.4331%
+the best hyperparameters of linear Model : C :45, Sigma:1, RMSE: 56.2386, Epsilon:1
+Use linear kernel method, the number of support vecorts in BM1 is :  125, absolute terms and in terms of a % training data available is: 79.6178%
+Use linear kernel method, the number of support vecorts in BM2 is :  120, absolute terms and in terms of a % training data available is: 76.4331%
+the best hyperparameters of linear Model : C :42, Sigma:1, RMSE: 56.2295, Epsilon:0.9
+Use linear kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use linear kernel method, the number of support vecorts in BM2 is :  139, absolute terms and in terms of a % training data available is: 88.535%
+the best hyperparameters of linear Model : C :44, Sigma:1, RMSE: 56.8231, Epsilon:0.8
+Use linear kernel method, the number of support vecorts in BM1 is :  137, absolute terms and in terms of a % training data available is: 87.2611%
+Use linear kernel method, the number of support vecorts in BM2 is :  136, absolute terms and in terms of a % training data available is: 86.6242%
+the best hyperparameters of linear Model : C :41, Sigma:1, RMSE: 51.0904, Epsilon:0.5
+Use linear kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use linear kernel method, the number of support vecorts in BM2 is :  134, absolute terms and in terms of a % training data available is: 85.3503%
+the best hyperparameters of linear Model : C :38, Sigma:1, RMSE: 57.8344, Epsilon:0.7
+Use linear kernel method, the number of support vecorts in BM1 is :  122, absolute terms and in terms of a % training data available is: 77.707%
+Use linear kernel method, the number of support vecorts in BM2 is :  138, absolute terms and in terms of a % training data available is: 87.8981%
+the best hyperparameters of linear Model : C :42, Sigma:1, RMSE: 58.5392, Epsilon:1
+Use linear kernel method, the number of support vecorts in BM1 is :  131, absolute terms and in terms of a % training data available is: 83.4395%
+Use linear kernel method, the number of support vecorts in BM2 is :  130, absolute terms and in terms of a % training data available is: 82.8025%
+the best hyperparameters of linear Model : C :38, Sigma:1, RMSE: 54.3454, Epsilon:0.7
