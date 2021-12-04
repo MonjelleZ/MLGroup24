@@ -1,15 +1,13 @@
 import numpy as np
 import pandas as pd
-import math
-import random
 import tensorflow as tf
 import logging 
 logging.basicConfig(level=logging.DEBUG) 
 import matplotlib.pyplot as plt
 from sklearn.model_selection import KFold
 
-import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
+#import tensorflow.compat.v1 as tf
+#tf.disable_v2_behavior()
 
 def multilayer_perceptron(input_d): 
     #input_d : input feature 
@@ -29,12 +27,12 @@ n_hidden2 = 10
 n_input = 6
 n_output = 2
 #Learning parameters
-learning_constant = 0.2
-number_epochs = 4000
+learning_constant = 0.1
+number_epochs = 2000
 #batch_size = 4000
 
 column_names=['IOP', 'PI', 'LLA', 'SS','PR','DOLS','Category']
-data =pd.read_csv("/Users/mengjiao/Documents/MachineLearning/MLGroup24/Lab3/column_2C.csv",names=column_names)
+data =pd.read_csv("/Users/mengjiao/Documents/MachineLearning/MLGroup24/Lab3/Classification/column_2C.csv",names=column_names)
 train_data = data.sample(frac=0.8, random_state=0)
 test_data = data.drop(train_data.index)
 train_labels_tmp = train_data.pop('Category')
@@ -42,12 +40,9 @@ test_labels_tmp = test_data.pop('Category')
 train_labels = pd.get_dummies(train_labels_tmp)
 test_labels = pd.get_dummies(test_labels_tmp)
 trainStats = train_data.describe()
-trainStats = trainStats.transpose()
-def Norm(x):
-    return (x-trainStats["mean"])/trainStats["std"]
- 
-TrainData = Norm(train_data)
-TestData = Norm(test_data)
+trainStats = trainStats.transpose() 
+TrainData = (train_data-trainStats["mean"])/trainStats["std"]
+TestData = (test_data-trainStats["mean"])/trainStats["std"]
 
 train_labels=pd.DataFrame(train_labels)
 test_labels =pd.DataFrame(test_labels)
