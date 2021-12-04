@@ -94,14 +94,14 @@ with tf.Session() as sess:
 
 
     pred = (neural_network) # Apply softmax to logits 
-    #accuracy=tf.keras.losses.MSE(pred,Y) 
-    #print("Accuracy:", accuracy.eval({X: TrainData, Y:train_labels})) 
+    accuracy=tf.keras.losses.MSE(pred,Y) 
+    print("Accuracy:", accuracy.eval({X: TrainData, Y:train_labels})) 
     #tf.keras.evaluate(pred,batch_x)
-    #print("Prediction:", pred.eval({X: TrainData})) 
-    #output=neural_network.eval({X: TrainData}) 
-    #plt.plot(train_labels[0:10], 'ro', output[0:10], 'bo') 
-    #plt.ylabel('some numbers')
-    #plt.show()
+    print("Prediction:", pred.eval({X: TrainData})) 
+    output=neural_network.eval({X: TrainData}) 
+    plt.plot(train_labels[0:10], 'ro', output[0:10], 'bo') 
+    plt.ylabel('some numbers')
+    plt.show()
     print("===============10-fold cross validation")
     k=10
     datax=train_data
