@@ -1,0 +1,113 @@
+learning rate == 0.1 number_epochs==4000
+epoch 0000 accuracy=0.56451613
+epoch 0100 accuracy=0.85483873
+epoch 0200 accuracy=0.90322578
+epoch 0300 accuracy=0.93548387
+epoch 0400 accuracy=0.95161289
+epoch 0500 accuracy=0.95161289
+epoch 0600 accuracy=0.96774191
+epoch 0700 accuracy=0.96774191
+epoch 0800 accuracy=0.98387098
+epoch 0900 accuracy=0.98387098
+epoch 1000 accuracy=0.98387098
+epoch 1100 accuracy=0.98387098
+epoch 1200 accuracy=0.98387098
+epoch 1300 accuracy=0.98387098
+epoch 1400 accuracy=0.98387098
+epoch 1500 accuracy=0.98387098
+epoch 1600 accuracy=0.98387098
+epoch 1700 accuracy=0.98387098
+epoch 1800 accuracy=0.98387098
+epoch 1900 accuracy=0.98387098
+epoch 2000 accuracy=0.98387098
+epoch 2100 accuracy=0.98387098
+epoch 2200 accuracy=0.98387098
+epoch 2300 accuracy=0.98387098
+epoch 2400 accuracy=0.98387098
+epoch 2500 accuracy=0.98387098
+epoch 2600 accuracy=0.98387098
+epoch 2700 accuracy=0.98387098
+epoch 2800 accuracy=0.98387098
+epoch 2900 accuracy=0.98387098
+epoch 3000 accuracy=0.98387098
+epoch 3100 accuracy=0.96774191
+epoch 3200 accuracy=0.95161289
+epoch 3300 accuracy=0.95161289
+epoch 3400 accuracy=0.95161289
+epoch 3500 accuracy=0.95161289
+epoch 3600 accuracy=0.95161289
+epoch 3700 accuracy=0.95161289
+epoch 3800 accuracy=0.95161289
+epoch 3900 accuracy=0.95161289
+
+
+===============10-fold cross validation
+ Accurate: 0.76
+ Accurate: 0.76
+ Accurate: 0.44
+ Accurate: 0.72
+ Accurate: 0.72
+ Accurate: 0.56
+ Accurate: 0.60
+ Accurate: 0.76
+ Accurate: 0.50
+ Accurate: 0.75
+
+ learning rate == 0.1 number_epochs==1000
+ epoch 0000 accuracy=0.32258064
+ epoch 0100 accuracy=0.87096775
+ epoch 0200 accuracy=0.93548387
+ epoch 0300 accuracy=0.95161289
+ epoch 0400 accuracy=0.96774191
+ epoch 0500 accuracy=0.98387098
+ epoch 0600 accuracy=0.96774191
+ epoch 0700 accuracy=0.96774191
+ epoch 0800 accuracy=0.96774191
+ epoch 0900 accuracy=0.96774191
+ ===============10-fold cross validation
+  Accurate: 0.76
+  Accurate: 0.52
+  Accurate: 0.76
+  Accurate: 0.88
+  Accurate: 0.68
+  Accurate: 0.84
+  Accurate: 0.92
+  Accurate: 0.84
+  Accurate: 0.92
+  Accurate: 0.92
+  Average Accurate: 0.80
+  
+  
+learning rate == 0.2  number_epochs==2000
+epoch 0000 accuracy=0.62903225
+epoch 0100 accuracy=0.98387098
+epoch 0200 accuracy=0.98387098
+epoch 0300 accuracy=0.98387098
+epoch 0400 accuracy=0.98387098
+epoch 0500 accuracy=0.96774191
+epoch 0600 accuracy=0.96774191
+epoch 0700 accuracy=0.96774191
+epoch 0800 accuracy=0.96774191
+epoch 0900 accuracy=0.96774191
+epoch 1000 accuracy=0.96774191
+epoch 1100 accuracy=0.96774191
+epoch 1200 accuracy=0.96774191
+epoch 1300 accuracy=0.96774191
+epoch 1400 accuracy=0.96774191
+epoch 1500 accuracy=0.96774191
+epoch 1600 accuracy=0.96774191
+epoch 1700 accuracy=0.96774191
+epoch 1800 accuracy=0.96774191
+epoch 1900 accuracy=0.96774191
+===============10-fold cross validation
+ Accurate: 0.56
+ Accurate: 0.72
+ Accurate: 0.52
+ Accurate: 0.84
+ Accurate: 0.60
+ Accurate: 0.64
+ Accurate: 0.68
+ Accurate: 0.76
+ Accurate: 0.62
+ Accurate: 0.67
+ Average Accurate: 0.66
