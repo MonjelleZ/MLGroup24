@@ -10,8 +10,8 @@ from sklearn.model_selection import KFold
 from tensorflow import keras
 from tensorflow.keras import layers
 
-import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
+#import tensorflow.compat.v1 as tf
+#tf.disable_v2_behavior()
 
 def multilayer_perceptron(input_d): 
     #input_d : input feature 
@@ -119,7 +119,7 @@ with tf.Session() as sess:
     plt.show()
 
 
-'''
+
     print("===============10-fold cross validation")
     k=10
     datax=train_data
@@ -143,4 +143,3 @@ with tf.Session() as sess:
     average_acc = acc/10
     print(" Average Accurate: %.2f" % average_acc)
 
-'''
