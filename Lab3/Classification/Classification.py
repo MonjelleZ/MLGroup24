@@ -1,13 +1,17 @@
 import numpy as np
+from numpy.core.function_base import _logspace_dispatcher
+from numpy.core.numeric import outer
 import pandas as pd
 import tensorflow as tf
 import logging 
 logging.basicConfig(level=logging.DEBUG) 
 import matplotlib.pyplot as plt
 from sklearn.model_selection import KFold
+from tensorflow import keras
+from tensorflow.keras import layers
 
-#import tensorflow.compat.v1 as tf
-#tf.disable_v2_behavior()
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 def multilayer_perceptron(input_d): 
     #input_d : input feature 
@@ -28,7 +32,7 @@ n_input = 6
 n_output = 2
 #Learning parameters
 learning_constant = 0.1
-number_epochs = 2000
+number_epochs = 1000
 #batch_size = 4000
 
 column_names=['IOP', 'PI', 'LLA', 'SS','PR','DOLS','Category']
@@ -68,15 +72,17 @@ w3 = tf.Variable(tf.random_normal([n_hidden2, n_output]))
 neural_network = multilayer_perceptron(X)
 
 #Define loss and optimizer
-loss_op = tf.reduce_mean(tf.math.squared_difference(neural_network,Y))
-#loss_op = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=neural_network,labels=Y))
+#loss_op = tf.reduce_mean(tf.math.squared_difference(neural_network,Y))
+loss_op = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=neural_network,labels=Y))
 optimizer = tf.train.GradientDescentOptimizer(learning_constant).minimize(loss_op)
 
 
 #Initializing the variables
 init = tf.global_variables_initializer()
 
-accuracies, steps = [], []
+plt.ion()
+fig, (ax , ax1)= plt.subplots(1,2, figsize=(8, 4))
+accuracies, steps, losstest, losstrain = [], [], [], []
 with tf.Session() as sess:
     sess.run(init)
     #Training epoch
@@ -90,18 +96,30 @@ with tf.Session() as sess:
             preds_check = tf.equal(y_pred, y_orig)
             accuracy_op = tf.reduce_mean(tf.cast(preds_check, tf.float32))
             accuracy_score = sess.run(accuracy_op)
-            print("epoch {0:04d} accuracy={1:.8f}".format(epoch, accuracy_score))
+            loss_test = sess.run(tf.losses.softmax_cross_entropy(onehot_labels=Y, logits=neural_network), feed_dict={X: TestData,Y: test_labels})
+            loss_train = sess.run(tf.losses.softmax_cross_entropy(onehot_labels=Y, logits=neural_network), feed_dict={X: TrainData,Y: train_labels})
+            steps.append(epoch)
+            accuracies.append(accuracy_score)
+            losstest.append(loss_test)
+            losstrain.append(loss_train)
+            print(f"epoch {epoch} | accuracy={accuracy_score} | loss={loss_test}")
+            ax.cla()
+            ax.plot(steps, accuracies, label="accuracy")
+            ax.set_ylim(ymax=1)
+            ax.set_ylabel("accuracy")
 
-
-    pred = (neural_network) # Apply softmax to logits 
-    accuracy=tf.keras.losses.MSE(pred,Y) 
-    print("Accuracy:", accuracy.eval({X: TrainData, Y:train_labels})) 
-    #tf.keras.evaluate(pred,batch_x)
-    print("Prediction:", pred.eval({X: TrainData})) 
-    output=neural_network.eval({X: TrainData}) 
-    plt.plot(train_labels[0:10], 'ro', output[0:10], 'bo') 
-    plt.ylabel('some numbers')
+            ax1.cla()
+            ax1.plot(steps, losstest, label="Valid Error")
+            ax1.plot(steps, losstrain, label="Train Error")
+            ax1.set_ylim(ymax=1)
+            ax1.set_ylabel("LOSS")
+            ax1.set_xlabel("Epoch")
+            plt.pause(0.01)
+    plt.ioff()
     plt.show()
+
+
+'''
     print("===============10-fold cross validation")
     k=10
     datax=train_data
@@ -124,3 +142,5 @@ with tf.Session() as sess:
         print(" Accurate: %.2f" % accuracy_score)
     average_acc = acc/10
     print(" Average Accurate: %.2f" % average_acc)
+
+'''
